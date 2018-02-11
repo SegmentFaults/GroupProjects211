@@ -4,12 +4,13 @@
 masterList = []
 resultList = []
 output = ""
-f = open('studentGrades.txt')
+file = open('studentGrades.txt')
 while 1:
-    fullPersonInfo = f.readline()
+    fullPersonInfo = file.readline()
     if not fullPersonInfo : break
     masterList.append(fullPersonInfo)
 #create the averaging data
+file.close()
 for x in range(len(masterList)):
     #first is a string
     #followed by 3 quiz scores, followed by  5 HW and 2 exams
@@ -33,4 +34,10 @@ for x in range(len(masterList)):
     resultList.append(gradeAverage)
 print resultList
 
+file=open("output.txt", "w")
+for x in range(0,len(resultList),2):
+    file.write('{:>20}'.format(str(resultList[x])))
+    score = float(resultList[x+1])
+    file.write('{:>5}'.format("%.1f" % score))
+    file.write("\n")
 #create the output
