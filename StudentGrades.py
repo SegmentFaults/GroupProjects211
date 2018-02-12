@@ -4,20 +4,19 @@
 #This is Homework 1 for CSE 211. It evaluates student grades.
 #This was created as a full group effort.
 
-
 #master_list is to collect the information
 master_list = []
 #result_list is to create the final output file and holds this
 result_list = []
 output = ""
-file = open('studentGrades.txt')
+in_file = open('studentGrades.txt')
 #collect all the data in the file seperated by spaces into list entries
 while 1:
-    full_person_info = file.readline()
+    full_person_info = in_file.readline()
     if not full_person_info : break
     master_list.append(full_person_info)
 #create the averaging data
-file.close()
+in_file.close()
 for x in range(len(master_list)):
     #get the grade averages
     temp_list = master_list[x].split()
@@ -41,11 +40,11 @@ for x in range(len(master_list)):
     result_list.append(grade_average)
 
 #start doing the output. Create a new file each time.
-file=open("output.txt", "w")
+out_file=open("output.txt", "w")
 for x in range(0,len(result_list),2):
     #field of 20 right aligned for the name.
-    file.write('{:>20}'.format(str(result_list[x])))
+    out_file.write('{:>20}'.format(str(result_list[x])))
     score = float(result_list[x+1])
     #field of 5 right aligned to one decimal precision.
-    file.write('{:>5}'.format("%.1f" % score))
-    file.write("\n")
+    out_file.write('{:>5}'.format("%.1f" % score))
+    out_file.write("\n")
