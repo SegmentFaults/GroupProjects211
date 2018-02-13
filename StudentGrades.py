@@ -6,6 +6,11 @@
 
 
 def determine_letter(current_score):
+    """
+    Calculates the letter grade for a given score
+    :param current_score: the score to be evaluated
+    :return: the letter grade that score falls within
+    """
     if current_score >= 90:
         return "A"
     elif current_score >= 80:
@@ -63,5 +68,6 @@ for x in range(0, len(result_list), 2):
     letter = determine_letter(score)
     # field of 5 right aligned to one decimal precision.
     out_file.write('{:>5}'.format("%.1f" % score))
+    # field of 2 right aligned for the letter grade
     out_file.write('{:>2}'.format(str(letter)))
     out_file.write("\n")
