@@ -1,3 +1,8 @@
+# Nick Hutchison, Michael Gentile, Lucas Harris, Noah Dirig
+# Dr. Alomari
+# Python 3.6.2
+
+
 def readfile(filepath):
     inner_books = dict()
     file = open(filepath, "r")
@@ -19,11 +24,7 @@ def readfile(filepath):
     return inner_books
 
 
-books = readfile("Step1Data.txt")
-key = input("Please enter a key")
-value = books[key]
-
-if value:
+def print_book(key, value):
     print(key, "\t", end="")
     first = True
     for i in value:
@@ -33,6 +34,16 @@ if value:
         else:
             print(", " + i, end="")
     print(". ")
+
+
+books = readfile("Step1Data.txt")
+user_key = input("Please enter a key")
+try:
+    user_value = books[user_key]
+    print_book(user_key, user_value)
+except KeyError:
+    print("Key not found in database")
+
 
 #
 # for key, value in books.items():
