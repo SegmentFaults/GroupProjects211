@@ -1,3 +1,4 @@
+#This is the same code from the pervious with modifications.
 def readfile(filepath):
     inner_books = dict()
     file = open(filepath, "r")
@@ -21,6 +22,8 @@ def readfile(filepath):
                 first_name, last_name = tag_content.split(" ")
                 tag_content = last_name + ", " + first_name
                 information_list.append(tag_content)
+            #here is the modified section
+            #this is to handle Journal entries.
             elif current_type == "Journal":
                 if tag == "Publisher":
                     publish_line = tag_content
