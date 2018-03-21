@@ -88,7 +88,18 @@ public class TurtleSoup {
      */
     public static double calculateHeadingToPoint(double currentHeading, int currentX, int currentY,
                                                  int targetX, int targetY) {
-        throw new RuntimeException("implement me!");
+        int headingX = targetX - currentX;
+        int headingY = targetY - currentY;
+        double angle = Math.toDegrees(Math.atan2(headingX, headingY));
+        if (angle == currentHeading) {
+            return angle;
+        }
+        else if (angle > currentHeading){
+            return angle - currentHeading;
+        }
+        else {
+            return 360 - (currentHeading - angle);
+        }
     }
 
     /**
@@ -99,13 +110,28 @@ public class TurtleSoup {
      * For each subsequent point, assumes that the turtle is still facing in the direction it was
      * facing when it moved to the previous point.
      * You should use calculateHeadingToPoint() to implement this function.
-     * 
+     *
      * @param xCoords list of x-coordinates (must be same length as yCoords)
      * @param yCoords list of y-coordinates (must be same length as xCoords)
      * @return list of heading adjustments between points, of size (# of points) - 1.
      */
     public static List<Double> calculateHeadings(List<Integer> xCoords, List<Integer> yCoords) {
-        throw new RuntimeException("implement me!");
+        double prevHeading = calculateHeadingToPoint(0, xCoords.get(0), yCoords.get(0),
+                xCoords.get(1), yCoords.get(1));
+        ArrayList<Double> list = new ArrayList<>();
+        list.add(prevHeading);
+        if(xCoords.size() == 2) {
+           return list;
+        }
+        else {
+            for (int i = 2; i < xCoords.size(); i++) {
+                double nextHeading = calculateHeadingToPoint(prevHeading, xCoords.get(i-1), yCoords.get(i-1),
+                        xCoords.get(i), yCoords.get(i));
+                list.add(nextHeading);
+                prevHeading = nextHeading;
+            }
+            return list;
+        }
     }
 
     /**
@@ -130,7 +156,7 @@ public class TurtleSoup {
         DrawableTurtle turtle = new DrawableTurtle();
 
         //drawSquare(turtle, 40);
-        drawRegularPolygon(turtle, 3, 50);
+        drawRegularPolygon(turtle, 5, 40);
         
         // draw the window
         turtle.draw();
