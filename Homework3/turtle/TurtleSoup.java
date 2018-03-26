@@ -144,7 +144,21 @@ public class TurtleSoup {
      * @param turtle the turtle context
      */
     public static void drawPersonalArt(Turtle turtle) {
-        throw new RuntimeException("implement me!");
+    	final int AMOUNT_OF_SIDES = 3;
+    	final int AMOUNT_OF_SHAPES = 100; //amount of shapes per quadrant.
+    	for(int i = 0; i < AMOUNT_OF_SHAPES; i++) {
+    		for (int j = 0; j<AMOUNT_OF_SIDES; j++) {
+	    		drawRegularPolygon(turtle, AMOUNT_OF_SIDES, i*AMOUNT_OF_SIDES);
+	    		turtle.turn(360/AMOUNT_OF_SIDES);
+    		}
+    	}
+    	for (int j =0; j<AMOUNT_OF_SIDES; j++) {
+	    	for (int i = 0; i < AMOUNT_OF_SHAPES; i++) {
+	    		drawRegularPolygon(turtle, 10, i + 1);
+	    	}
+	    	turtle.turn(120);
+    	}
+    	
     }
 
     /**
@@ -156,7 +170,8 @@ public class TurtleSoup {
         DrawableTurtle turtle = new DrawableTurtle();
 
         //drawSquare(turtle, 40);
-        drawRegularPolygon(turtle, 5, 40);
+        //drawSquare(turtle, 40);
+        drawPersonalArt(turtle);
         
         // draw the window
         turtle.draw();
