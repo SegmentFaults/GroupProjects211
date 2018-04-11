@@ -78,14 +78,14 @@ public class ComplexTest extends TestCase {
 	@Test
 	public void multiply_equivalencePartitioning() {
 		// multiply positive and positive
-		assertEquals(15.0f, positive.multiply(positive2).getReal());
-		assertEquals(15.0f, positive.multiply(positive2).getImag());
+		assertEquals(12.0f, positive.multiply(positive2).getReal());
+		assertEquals(14.0f, positive.multiply(positive2).getImag());
 		// multiply negative and negative
-		assertEquals(8.0f, negative.multiply(negative2).getReal());
-		assertEquals(20.0f, negative.multiply(negative2).getImag());
+		assertEquals(18.0f, negative.multiply(negative2).getReal());
+		assertEquals(36.0f, negative.multiply(negative2).getImag());
 		// positive * negative
-		assertEquals(-10.0f, positive.multiply(negative).getReal());
-		assertEquals(-12.0f, positive.multiply(negative).getImag());
+		assertEquals(2.0f, positive.multiply(negative).getReal());
+		assertEquals(-26.0f, positive.multiply(negative).getImag());
 	}
 	
 	@Test
@@ -108,11 +108,27 @@ public class ComplexTest extends TestCase {
 	@Test
 	public void divide_equivalencePartitioning() {
 		// check for allowable error
+        // divide positive and positive
+        assertEquals(1.8f, positive.divide(positive2).getReal(), .00001);
+        assertEquals(0.4f, positive.divide(positive2).getImag(), .00001);
+        // divide negative and negative
+        assertEquals(.68293f, negative.divide(negative2).getReal());
+        assertEquals(.14634f, negative.divide(negative2).getImag());
+        // positive / negative
+        assertEquals(-1.1f, positive.divide(negative).getReal(), .00001);
+        assertEquals(0.7f, positive.divide(negative).getImag(), .00001);
 	}
 	
 	@Test
 	public void divide_boundaryValue() {
-		assertEquals();
+        // divide zero by positive
+        assertEquals(0.0f, zero.divide(positive).getReal());
+        assertEquals(0.0f, zero.divide(positive).getImag());
+
+        // multiply max + max
+        // ---asdf
+        // multiply max + min
+        // --asdf
 	}
 	
 	@Test
