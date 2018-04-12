@@ -7,29 +7,35 @@ public class Complex {
 	public Complex() {
 		
 	}
-	public Complex(float x, float y) {
-		this.real = x;
-		this.imag = y;
+	public Complex(float real, float imag) {
+		this.real = real;
+		this.imag = imag;
 	}
 	public Complex add(Complex other) {
-	    this.real = (this.real + other.getReal());
-	    this.imag = (this.imag + other.getImag());
-	    return this;
+	    float newReal = (this.real + other.getReal());
+	    float newImag = (this.imag + other.getImag());
+	    return new Complex(newReal, newImag);
 	}
 	public Complex subtract(Complex other) {
-        this.real = (this.real - other.getReal());
-        this.imag = (this.imag - other.getImag());
-        return this;
+        float newReal = (this.real - other.getReal());
+        float newImag = (this.imag - other.getImag());
+        return new Complex(newReal, newImag);
 	}
 	public Complex multiply(Complex other) {
-		
+		float newReal = (this.real * other.getReal()) - (this.imag * other.getImag());
+		float newImag = (this.real * other.getImag()) + (this.imag * other.getReal());
+        return new Complex(newReal, newImag);
 	}
 	public Complex divide(Complex other) {
-		 
+		 return this.multiply(other.reciprocal());
 	}
-	public Complex toString() {
-		
+	public String toString() {
+		return this.real + " + " + this.imag + "i";
 	}
+	public Complex reciprocal() {
+	    float scale = this.real * this.real + this.imag * this.imag;
+	    return new Complex(this.real/scale, -this.imag/scale);
+    }
 	public float getReal() {
 		return this.real;
 	}
