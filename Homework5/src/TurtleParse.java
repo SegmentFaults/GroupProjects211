@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -7,13 +9,15 @@ public class TurtleParse {
 	static ArrayList<String> commands = new ArrayList<String>();
 	static ArrayList<String> runStrings = new ArrayList<String>();
 	static ArrayList<Integer> values = new ArrayList<Integer>();
-	public static void main(String[] args) {
-		read("testProgramStep1.txt");
+	static DrawableTurtle turtle = new DrawableTurtle();
+	public static void main(String[] args) throws FileNotFoundException {
+//		read("testProgramStep1.txt");
 		read("testProgramStep2.txt");
-		read("testProgramStep3.txt:");
+//		read("testProgramStep3.txt:");
+		turtle.draw();
 	}
-	static private void read(String filename) {
-		Scanner s = new Scanner(filename);
+	static private void read(String filename) throws FileNotFoundException {
+		Scanner s = new Scanner(new File(filename));
 		while(s.hasNext()) {
 			commands.add(s.next());
 		}
@@ -32,24 +36,26 @@ public class TurtleParse {
 		parseCommands();
 	}
 	static private void parseCommands() {
-	while(commands.size() != 1) {
+		while(commands.size() != 1) {
 			// parse each separate command and translate it.
 			if (commands.get(0).equals("forward")) {
-				//push to forward
+				turtle.forward(Integer.parseInt(commands.get(1)));
 			}
 			else if (commands.get(0).equals("turn")) {
-				//push to turn
+				turtle.turn(Double.parseDouble(commands.get(1)));
 			}
 			else if (commands.get(0).equals("loop")) {
 				//get the value of the loop
-				//ignore the begin statement and remove it
-				//call parse commands that many time
+				int loopCount = Integer.parseInt(commands.get(1));
+				for(int i = 0; i<loopCount; i++) {
+					parseCommands();
+				}
 			}
 			commands.remove(0);
 			commands.remove(0);
 		}
 		if (commands.get(0).equals("end")) {
-			// good
+			
 		}
 		else {
 			//fail
