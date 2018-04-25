@@ -10,6 +10,7 @@ public class TurtleParse {
 	static ArrayList<String> runStrings = new ArrayList<String>();
 	static ArrayList<Integer> values = new ArrayList<Integer>();
 	static DrawableTurtle turtle = new DrawableTurtle();
+	static int index = 0;
 	public static void main(String[] args) throws FileNotFoundException {
 //		read("testProgramStep1.txt");
 		read("testProgramStep2.txt");
@@ -21,44 +22,61 @@ public class TurtleParse {
 		while(s.hasNext()) {
 			commands.add(s.next());
 		}
-		startParse();
-
+		program();
+		
 	}
-	static private void startParse() {
-		if(commands.get(0).equals("begin") && commands.get(commands.size()-1).equals("programEnd")){
-			commands.remove(0);
-			commands.remove(commands.size()-1);
+	
+	static private void program() {
+		block();
+	}
+	
+	static private void block() {
+		if(commands.get(index).equals("begin")) {
+			index++;
+			statementList();	
+		}
+		else if(commands.get(index).equals("end")) {
+			index++;
+		}
+		
+	}
+	static private void statementList() {
+		if(commands.get(index).equals("forward") || commands.get(index).equals("turn") || commands.get(index).equals("loop")) {
+			statement();
+			statementList();
+		}
+	}
+	static private void statement() {
+		if(commands.get(index).equals("forward") || commands.get(index).equals("turn")) {
+			command();
 		}
 		else {
-			//it's broken
-			System.exit(0);
+			loop();
 		}
-		parseCommands();
 	}
-	static private void parseCommands() {
-		while(commands.size() != 1) {
-			// parse each separate command and translate it.
-			if (commands.get(0).equals("forward")) {
-				turtle.forward(Integer.parseInt(commands.get(1)));
-			}
-			else if (commands.get(0).equals("turn")) {
-				turtle.turn(Double.parseDouble(commands.get(1)));
-			}
-			else if (commands.get(0).equals("loop")) {
-				//get the value of the loop
-				int loopCount = Integer.parseInt(commands.get(1));
-				for(int i = 0; i<loopCount; i++) {
-					parseCommands();
-				}
-			}
-			commands.remove(0);
-			commands.remove(0);
+	static private void loop() {
+		index++;
+		int loopCount = Integer.parseInt(commands.get(index));
+		index++;
+		int loopBegin = index;
+		for(int i = 0; i<loopCount-1; i++) {
+			block();
+			index = loopBegin;
 		}
-		if (commands.get(0).equals("end")) {
-			
+		block();
+		index++;
+		
+		
+	}
+	static private void command() {
+		if(commands.get(index).equals("forward")) {
+			index++;
+			turtle.forward(Integer.parseInt(commands.get(index)));
 		}
 		else {
-			//fail
+			index++;
+			turtle.turn(Integer.parseInt(commands.get(index)));
 		}
+		index++;
 	}
 }
