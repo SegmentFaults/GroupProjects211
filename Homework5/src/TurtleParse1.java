@@ -17,7 +17,7 @@ public class TurtleParse1 {
 //		read("testProgramStep3.txt:");
 		turtle.draw();
 	}
-	static private void read(String filename) throws FileNotFoundException {
+	static void read(String filename) throws FileNotFoundException {
 		Scanner s = new Scanner(new File(filename));
 		while(s.hasNext()) {
 			commands.add(s.next());

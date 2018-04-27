@@ -9,7 +9,7 @@ public class TurtleParse3 {
 	private static ArrayList<String> commands = new ArrayList<>();
 	static ArrayList<String> runStrings = new ArrayList<>();
 	static ArrayList<Integer> values = new ArrayList<Integer>();
-	private static DrawableTurtle turtle = new DrawableTurtle();
+	static DrawableTurtle turtle = new DrawableTurtle();
 	private static int index = 0;
 	public static void main(String[] args) throws FileNotFoundException {
 //		read("testProgramStep1.txt");
@@ -17,7 +17,7 @@ public class TurtleParse3 {
 		read("testProgramStep3.txt");
 		turtle.draw();
 	}
-	static private void read(String filename) throws FileNotFoundException {
+	static void read(String filename) throws FileNotFoundException {
 		Scanner s = new Scanner(new File(filename));
 		while(s.hasNext()) {
 			commands.add(s.next());
